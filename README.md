@@ -13,13 +13,15 @@
 
 ## Example usage
 * input image should be [0.0 ~ 255.0], float32, NHWC format
+
 ```python
 import os
 import numpy as np
 import tensorflow as tf
 from PIL import Image
 
-from lpips_tensorflow import learned_perceptual_metric_model
+from models.lpips_tensorflow import learned_perceptual_metric_model
+
 
 def load_image(fn):
     image = Image.open(fn)
@@ -29,10 +31,12 @@ def load_image(fn):
     image = tf.constant(image, dtype=tf.dtypes.float32)
     return image
 
+
 image_size = 64
-vgg_ckpt_fn = os.path.join(save_dir, 'vgg', 'exported')
-lin_ckpt_fn = os.path.join(save_dir, 'lin', 'exported')
-lpips = learned_perceptual_metric_model(image_size, lin_ckpt_fn, vgg_ckpt_fn)
+model_dir = './models'
+vgg_ckpt_fn = os.path.join(model_dir, 'vgg', 'exported')
+lin_ckpt_fn = os.path.join(model_dir, 'lin', 'exported')
+lpips = learned_perceptual_metric_model(image_size, vgg_ckpt_fn, lin_ckpt_fn)
 
 # official pytorch model value:
 # Distance: ex_ref.png <-> ex_p0.png = 0.569
