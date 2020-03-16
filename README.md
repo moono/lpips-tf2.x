@@ -3,11 +3,6 @@
 * Similar to [lpips-tensorflow][TF repo] except,
   * In this repo, network architecture is explicitly implemented rather than converting with ONNX.
 
-## Exporting from official repo
-* Clone official repo [LPIPS metric][Offical repo]
-* Place `./example_export_script/convert_to_tensorflow.py` and `./models/lpips_tensorflow.py` on root directory
-* Run `convert_to_tensorflow.py`
-
 ## Limitation
 * Currently only `model='net-lin', net='vgg'` is implemented
 
@@ -50,6 +45,11 @@ image2 = load_image(image_fn2)
 dist01 = lpips([image1, image2])
 print('Distance: {:.3f}'.format(dist01))
 ```
+
+### To reproduce same checkpoint files...
+* Clone official repo [LPIPS metric][Offical repo]
+* Place `./example_export_script/convert_to_tensorflow.py` and `./models/lpips_tensorflow.py` on root directory
+* Run `convert_to_tensorflow.py`
 
 [Offical repo]: https://github.com/richzhang/PerceptualSimilarity
 [TF repo]: https://github.com/alexlee-gk/lpips-tensorflow
