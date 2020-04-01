@@ -55,7 +55,9 @@ def learned_perceptual_metric_model(image_size, vgg_model_ckpt_fn, lin_model_ckp
     lin_out = [Lambda(lambda x: tf.reduce_mean(x, axis=[2, 3], keepdims=True))(t) for t in lin_out]
 
     # take sum of all layers
-    lin_out = Lambda(lambda x: tf.reduce_sum(x))(lin_out)
+    # lin_out = Lambda(lambda x: tf.reduce_sum(x))(lin_out)
+    lin_out = Lambda(lambda x: tf.reduce_sum(x, axis=[0], keepdims=False))(lin_out)
+    lin_out = Lambda(lambda x: tf.squeeze(x))(lin_out)
 
     final_model = Model(inputs=[input1, input2], outputs=lin_out)
     return final_model
